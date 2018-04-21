@@ -5,11 +5,11 @@
  * Description:     laravel hybrid in wordpress
  * Author:          InternetBacked
  * Author URI:      https://internetbacked.com
- * Text Domain:     ib-laravel-helpers
+ * Text Domain:     ib-laravel-helper
  * Domain Path:     /languages
  * Version:         0.1.0
  *
- * @package         Ib_Laravel_Helpers
+ * @package         Ib_Laravel_Helper
  */
 
 global $wp_hybrid_laravel;
