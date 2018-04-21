@@ -1,55 +1,30 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Create The Application
-|--------------------------------------------------------------------------
-|
-| The first thing we will do is create a new Laravel application instance
-| which serves as the "glue" for all the components of Laravel, and is
-| the IoC container for the system binding all of the various parts.
-|
-*/
+require_once WPHL_PLUGIN_DIR.'/app/Support/helpers.php';
+require_once WPHL_PLUGIN_DIR.'/app/Support/helpers-override.php';
 
-$app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
-);
+require_once WPHL_PLUGIN_DIR.'/vendor/autoload.php';
 
-/*
-|--------------------------------------------------------------------------
-| Bind Important Interfaces
-|--------------------------------------------------------------------------
-|
-| Next, we need to bind some important interfaces into the container so
-| we will be able to resolve them when needed. The kernels serve the
-| incoming requests to this application from both the web and CLI.
-|
-*/
+try {
+(new Dotenv\Dotenv(ABSPATH))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
+//
+}
 
-$app->singleton(
-    Illuminate\Contracts\Http\Kernel::class,
-    App\Http\Kernel::class
-);
+use Illuminate\Database\Capsule\Manager as Capsule;
 
-$app->singleton(
-    Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
-);
+$capsule = new Capsule;
 
-$app->singleton(
-    Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
-);
+$capsule->addConnection([
+"driver" => env('DB_CONNECTION', 'mysql'),
+"host" => env('DB_HOST', DB_HOST),
+"database" => env('DB_DATABASE', DB_NAME),
+"username" => env('DB_USERNAME', DB_USER),
+"password" => env('DB_PASSWORD', DB_PASSWORD)
+]);
 
-/*
-|--------------------------------------------------------------------------
-| Return The Application
-|--------------------------------------------------------------------------
-|
-| This script returns the application instance. The instance is given to
-| the calling script so we can separate the building of the instances
-| from the actual running of the application and sending responses.
-|
-*/
+$capsule->setAsGlobal();
 
-return $app;
+$capsule->bootEloquent();
+
+return container();
