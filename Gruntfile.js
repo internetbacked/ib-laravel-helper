@@ -32,7 +32,7 @@ module.exports = function( grunt ) {
 				options: {
 					domainPath: '/languages',
 					exclude: [ '\.git/*', 'bin/*', 'node_modules/*', 'tests/*' ],
-					mainFile: 'ib-laravel-helpers.php',
+					mainFile: 'ib-laravel-helper.php',
 					potFilename: 'ib-laravel-helpers.pot',
 					potHeaders: {
 						poedit: true,
