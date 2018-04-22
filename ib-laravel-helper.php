@@ -17,10 +17,4 @@ global $wp_hybrid_laravel;
 define('WPHL_PLUGIN', __FILE__);
 define('WPHL_PLUGIN_DIR', __DIR__);
 
-if(!class_exists('Dotenv\Dotenv'))
-{
- shell_exec("php composer.phar install");
- return;
-}
-
 $wp_hybrid_laravel = require_once WPHL_PLUGIN_DIR.'/bootstrap/app.php';
