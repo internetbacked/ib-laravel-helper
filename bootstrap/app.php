@@ -11,20 +11,28 @@ try {
 //
 }
 
-use Illuminate\Database\Capsule\Manager as Capsule;
+global $wp_hybrid_laravel;
 
-$capsule = new Capsule;
+$wp_hybrid_laravel = container();
 
-$capsule->addConnection([
-"driver" => env('DB_CONNECTION', 'mysql'),
-"host" => env('DB_HOST', DB_HOST),
-"database" => env('DB_DATABASE', DB_NAME),
-"username" => env('DB_USERNAME', DB_USER),
-"password" => env('DB_PASSWORD', DB_PASSWORD)
-]);
+//Load Config
+$wp_hybrid_laravel['config']->set('database', require WPHL_PLUGIN_DIR.'/config/database.php');
 
+//Load Database
+$capsule = new Illuminate\Database\Capsule\Manager;
+
+$capsule->addConnection(config('database.connections.mysql'));
+
+// Set the event dispatcher used by Eloquent models... (optional)
+$capsule->setEventDispatcher(new Illuminate\Events\Dispatcher($wp_hybrid_laravel));
+
+// Set the cache manager instance used by connections... (optional)
+// $capsule->setCacheManager(...);
+
+// Make this Capsule instance available globally via static methods... (optional)
 $capsule->setAsGlobal();
 
+// Setup the Eloquent ORM... (optional; unless you've used setEventDispatcher())
 $capsule->bootEloquent();
 
-return container();
+return $wp_hybrid_laravel;
