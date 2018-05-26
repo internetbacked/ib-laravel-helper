@@ -1,5 +1,18 @@
 <?php
 
+if (! function_exists('storage_path')) {
+	/**
+	 * Get the path to the storage folder.
+	 *
+	 * @param  string  $path
+	 * @return string
+	 */
+	function storage_path($path = '')
+	{
+		return app('path.storage').($path ? DIRECTORY_SEPARATOR.$path : $path);
+	}
+}
+
 if (! function_exists('config')) {
  /**
   * Get / set the specified configuration value.
@@ -43,4 +56,11 @@ if (! function_exists('app')) {
             ? $wp_hybrid_laravel->make($abstract)
             : $wp_hybrid_laravel->makeWith($abstract, $parameters);
     }
+}
+
+if(! function_exists('resource_path')) {
+	function resource_path($uri)
+	{
+		return WPHL_PLUGIN_DIR.'/resources/'.$uri;
+	}
 }

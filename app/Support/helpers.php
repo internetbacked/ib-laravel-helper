@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Philo\Blade\Blade;
 use Collective\Html\HtmlBuilder;
 use Collective\Html\FormBuilder;
@@ -14,6 +15,13 @@ use Illuminate\Session\SessionManager;
 use Illuminate\Log\Writer;
 use Monolog\Logger;
 
+/**
+ * @return Carbon
+ */
+function today()
+{
+	return Carbon::today();
+}
 
 /**
  * @param string $message
@@ -39,13 +47,19 @@ function session()
 /**
  * @return Blade
  */
-function blade()
+function blade($views_path = null, $cache_path = null)
 {
  $views = defined('WPHL_RESOURCES_VIEWS')
   ? WPHL_RESOURCES_VIEWS
   : WPHL_PLUGIN_DIR . '/resources/views';
 
  $cache = WPHL_PLUGIN_DIR . '/resources/cache';
+
+ if($views_path && is_dir($views_path))
+ 	$views = $views_path;
+
+ if($cache_path && is_dir($cache_path))
+ 	$cache = $cache_path;
 
  return new Blade($views, $cache);
 }

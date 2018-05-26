@@ -16,8 +16,10 @@
   "illuminate/log": "^5.1",
   "illuminate/pagination": "^5.1",
   "illuminate/routing": "5.1.*",
+  "illuminate/bus": "5.1.*",
   "illuminate/support": "^5.1",
   "laravelcollective/html": "5.1.*",
+  "maatwebsite/excel": "^2.1",
   "philo/laravel-blade": "^3.1",
   "vlucas/phpdotenv": "^2.4"
  },
