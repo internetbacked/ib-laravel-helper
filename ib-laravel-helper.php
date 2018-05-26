@@ -1,13 +1,13 @@
 <?php defined('ABSPATH') or die('Bye');
 /**
  * Plugin Name:     WP Hybrid Laravel
- * Plugin URI:      PLUGIN SITE HERE
+ * Plugin URI:      https://github.com/internetbacked/ib-laravel-helper
  * Description:     laravel hybrid in wordpress
  * Author:          InternetBacked
  * Author URI:      https://internetbacked.com
  * Text Domain:     ib-laravel-helper
  * Domain Path:     /languages
- * Version:         0.1.3
+ * Version:         1.2.0
  *
  * @package         Ib_Laravel_Helper
  */
