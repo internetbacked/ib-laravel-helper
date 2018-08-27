@@ -1,5 +1,10 @@
 <?php
 
+$db_info = explode(':', DB_HOST);
+$db_host = $db_info[0];
+$db_port = $db_info[1] ?? 3306;
+
+
 return [
 
  /*
@@ -35,47 +40,23 @@ return [
 
   'sqlite' => [
    'driver' => 'sqlite',
-   'database' => env('DB_DATABASE', WPHL_PLUGIN_DIR . '/database/database.sqlite'),
+   'database' => DB_NAME,
    'prefix' => '',
   ],
 
   'mysql' => [
    'driver' => 'mysql',
-   'host' => env('DB_HOST', current(explode(':', DB_HOST))),
-   'port' => env('DB_PORT', '3306'),
-   'database' => env('DB_DATABASE', DB_NAME),
-   'username' => env('DB_USERNAME', DB_USER),
-   'password' => env('DB_PASSWORD', DB_PASSWORD),
-   'unix_socket' => env('DB_SOCKET', ''),
+   'host' => $db_host,
+   'port' => $db_port,
+   'database' => DB_NAME,
+   'username' => DB_USER,
+   'password' => DB_PASSWORD,
+   'unix_socket' => '',
    'charset' => DB_CHARSET,
    'collation' => DB_COLLATE,
    'prefix'  => '',
    'strict'  => false,
    'engine'  => null
-  ],
-
-  'pgsql' => [
-   'driver' => 'pgsql',
-   'host' => env('DB_HOST', '127.0.0.1'),
-   'port' => env('DB_PORT', '5432'),
-   'database' => env('DB_DATABASE', 'forge'),
-   'username' => env('DB_USERNAME', 'forge'),
-   'password' => env('DB_PASSWORD', ''),
-   'charset' => 'utf8',
-   'prefix' => '',
-   'schema' => 'public',
-   'sslmode' => 'prefer',
-  ],
-
-  'sqlsrv' => [
-   'driver' => 'sqlsrv',
-   'host' => env('DB_HOST', 'localhost'),
-   'port' => env('DB_PORT', '1433'),
-   'database' => env('DB_DATABASE', 'forge'),
-   'username' => env('DB_USERNAME', 'forge'),
-   'password' => env('DB_PASSWORD', ''),
-   'charset' => 'utf8',
-   'prefix' => '',
   ],
 
  ],

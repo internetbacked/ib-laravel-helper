@@ -33,6 +33,11 @@ function logger($message, $type = 'info')
 
  $log->useFiles(ABSPATH . 'wphl.log');
 
+ if($message instanceof WP_Error)
+ {
+ 	$message = collect($message->get_error_messages())->first();
+ }
+
  $log->{$type}("{$message}");
 }
 
@@ -80,7 +85,7 @@ function render($view, $data)
  */
 function app_url($uri='')
 {
- $app_url = env('APP_URL');
+ $app_url = MJBE_ENV;
 
  return "{$app_url}{$uri}";
 }

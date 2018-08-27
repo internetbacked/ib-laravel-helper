@@ -14,4 +14,9 @@ class User extends Model{
  {
   return $this->hasMany(Comment::class, 'user_id');
  }
+
+ public function shop_orders()
+ {
+ 	return $this->hasMany(ShopOrder::class, 'post_author');
+ }
 }
