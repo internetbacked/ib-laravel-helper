@@ -15,6 +15,73 @@ use Illuminate\Session\SessionManager;
 use Illuminate\Log\Writer;
 use Monolog\Logger;
 
+function wphl_activable()
+{
+	$result = true;
+
+	if(!class_exists('Dotenv\Dotenv'))
+		return false;
+
+	if(!function_exists('collect'))
+		return false;
+
+	list($active_plugins, $active_sitewide_plugins) = wphl_active_plugins();
+
+	/**
+	 * SITE: Check if ib-laravel-helper is active
+	 **/
+	if(!in_array('ib-laravel-helper/ib-laravel-helper.php', $active_plugins)
+		&& !in_array('ib-laravel-helper/ib-laravel-helper.php', $active_sitewide_plugins))
+	{
+		$result = false;
+	}
+
+	return $result;
+}
+
+function wphl_wc_activated() {
+	$result = true;
+
+	list($active_plugins, $active_sitewide_plugins) = wphl_active_plugins();
+
+	/**
+	 * BOTH: Check if woocommerce is active
+	 **/
+	if(!in_array('woocommerce/woocommerce.php', $active_plugins)
+		&& !in_array('woocommerce/woocommerce.php', $active_sitewide_plugins))
+	{
+		$result = false;
+	}
+
+	return $result;
+}
+
+function wphl_active_plugins() {
+	$active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
+	$active_sitewide_plugins = collect(get_site_option( 'active_sitewide_plugins' ))->keys()->toArray();
+
+	return [$active_plugins, $active_sitewide_plugins];
+}
+
+function strip_tags_content($text, $tags = '', $invert = FALSE) {
+
+	preg_match_all('/<(.+?)[\s]*\/?[\s]*>/si', trim($tags), $tags);
+	$tags = array_unique($tags[1]);
+
+	if(is_array($tags) AND count($tags) > 0) {
+		if($invert == FALSE) {
+			return preg_replace('@<(?!(?:'. implode('|', $tags) .')\b)(\w+)\b.*?>.*?</\1>@si', '', $text);
+		}
+		else {
+			return preg_replace('@<('. implode('|', $tags) .')\b.*?>.*?</\1>@si', '', $text);
+		}
+	}
+	elseif($invert == FALSE) {
+		return preg_replace('@<(\w+)\b.*?>.*?</\1>@si', '', $text);
+	}
+	return $text;
+}
+
 /**
  * @return Carbon
  */
