@@ -7,7 +7,7 @@
  * Author URI:      https://internetbacked.com
  * Text Domain:     ib-laravel-helper
  * Domain Path:     /languages
- * Version:         1.2.0
+ * Version:         1.2.1
  *
  * @package         Ib_Laravel_Helper
  */
