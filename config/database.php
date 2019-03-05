@@ -2,7 +2,7 @@
 
 $db_info = explode(':', DB_HOST);
 $db_host = $db_info[0];
-$db_port = isset($db_info[1]) ? $db_info[1] : 3306;
+$db_port = @$db_info[1] ? $db_info[1] : 3306;
 
 
 return [

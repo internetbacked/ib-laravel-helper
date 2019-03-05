@@ -3,8 +3,8 @@
 /usr/local/opt/php@5.6/bin/php $(which composer) dump
 
 PLUGIN_SLUG=ib-laravel-helper
-#WP_HOME=/Users/ihsanberahim/Documents/Wordpress_Workspace/strongbase.goaldriven
-WP_HOME=/Users/ihsanberahim/Documents/MARYJARDIN/Sites/www.maryjardin
+WP_HOME=/Users/ihsanberahim/Documents/Wordpress_Workspace/strongbase.goaldriven
+#WP_HOME=/Users/ihsanberahim/Documents/MARYJARDIN/Sites/www.maryjardin
 
 # clean build
 mkdir $PLUGIN_SLUG
